@@ -3,6 +3,10 @@
 
 using namespace std;
 
+/*
+* Silver3 - 1로 만들기
+*/
+
 int main(void)
 {
 	// 각 입력에 대해 연산의 최소를 찾는게 키 포인트, 입력을 x라고 하자

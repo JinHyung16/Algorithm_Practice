@@ -1,9 +1,12 @@
 #include<iostream>
 #include<vector>
 
+/*
+* Silver3 - 피보나치 dp 알고리즘 응용
+*/
+
 int main(void)
 {
-	//피보나치 dp 알고리즘 응용
 	const int MAX_SIZE = 40; //배열 최대 사이즈
 	int testCase = 0;
 

@@ -1,9 +1,12 @@
 #include<iostream>
 #include<vector>
 
+/*
+* Silver5 - 다리 건설하기 dp 알고리즘
+*/
+
 int main(void)
 {
-	//다리 건설하기 dp 알고리즘
 	//m개중에서 n개 선택하는 조합 생각하기
 	//nCr = n-1Cr-1 + n-1Cr
 	//여기선 m개중 n개뽑기로 mCn
