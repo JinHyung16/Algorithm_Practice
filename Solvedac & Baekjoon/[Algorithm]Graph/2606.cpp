@@ -47,7 +47,7 @@ int main(void)
 		dfsVec[nodeOne].push_back(nodeTwo);
 		dfsVec[nodeTwo].push_back(nodeOne);
 	}
-	
+
 	DFSFunction(1);
 	std::cout << virusCount << std::endl;
 	return 0;
