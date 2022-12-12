@@ -15,7 +15,7 @@ vector<vector<int>> miroPos(2, vector<int>(2, 0)); //miro의 주어진 조건들 저장
 
 //(1,1)시작 기준 down->left->up->right 순으로 살펴본다
 vector<int> dx = { 0, 1, 0, -1 };
-vector<int> dy = { 1, 0, -1, 0 };
+vector<int> dy = { -1, 0, 1, 0 };
 
 stack <pair<int, int>> pathStk; //지나간 길 stack에 넣어둠
 
