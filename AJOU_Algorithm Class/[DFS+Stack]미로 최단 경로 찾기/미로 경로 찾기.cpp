@@ -3,22 +3,21 @@
 #include<fstream>
 #include<string>
 #include<sstream>
-#include<queue>
 #include<stack>
 #include<algorithm>
 
 using namespace std;
 
+
 int X, Y;
 vector<vector<char>> miro;
 vector<vector<int>> miroPos(2, vector<int>(2, 0)); //miro의 주어진 조건들 저장
-vector<vector<bool>> visited(10000, vector<bool>(10000, false));
 
-//up right down left 순으로 살펴본다
+//(1,1)시작 기준 down->left->up->right 순으로 살펴본다
 vector<int> dx = { 0, 1, 0, -1 };
-vector<int> dy = { -1, 0, 1, 0 };
+vector<int> dy = { 1, 0, -1, 0 };
 
-bool IsNotMiro = false;
+stack <pair<int, int>> pathStk; //지나간 길 stack에 넣어둠
 
 void FileInput()
 {
@@ -28,7 +27,6 @@ void FileInput()
 	vector<int> numVec; //index 0~1은 row, col size의미 index 2~3은 시작점 x,y 좌표를 4~5는 도착지점 x,y 좌표 의미
 	if (file.is_open())
 	{
-		int num = 0;
 		string read;
 		while (getline(file, read))
 		{
@@ -64,6 +62,7 @@ void FileInput()
 	//미로 읽기
 	file.open("miro.txt");
 	vector<vector<char>> temp(Y);
+
 	if (file.is_open())
 	{
 		string read;
@@ -74,14 +73,10 @@ void FileInput()
 			{
 				if (index != 0 && index < (Y + 1))
 				{
-					//입력의 0번째와 마지막은 숫자로 이 부분을 제외한 나머지가 미로 본체
-					if (c == '*' || c == ' ')
-					{
-						temp[index - 1].push_back(c);
-					}
+					temp[index - 1].push_back(c);
 				}
 			}
-			index++;
+			index += 1;
 		}
 	}
 	else
@@ -97,22 +92,27 @@ void FileInput()
 	temp.clear();
 }
 
-void FindPath(int sx, int sy, int ex, int ey)
-{	
-	miro[sy][sx] = 'x'; //처음 위치는 이미 방문한곳으로 체킹
-	miro[ey][ex] = ' '; //도착점 -2
+void FindPath(const vector<vector<char>>& m, int sx, int sy, int ex, int ey)
+{
+	vector<vector<char>> maze = m;
+	maze[sy][sx] = 'S'; //처음 위치는 이미 방문한곳으로 체킹
+	maze[ey][ex] = 'E'; //도착점
 
-	stack <pair<int, int>> stk; //지나간 길 stack에 넣어둠
-	stk.push(make_pair(sx, sy));
+	//stack <pair<int, int>> pathStk; //지나간 길 stack에 넣어둠
+	pathStk.push(make_pair(sx, sy));
 
-	int curX = stk.top().first;
-	int curY = stk.top().second;
+	int curX = pathStk.top().first;
+	int curY = pathStk.top().second;
 
 	while (true)
 	{
-		miro[curY][curX] = 'x';
-		if (miro[curY][curX] == miro[ey][ex])
+		maze[curY][curX] = 'x';
+
+		if (curY == ey && curX == ex)
 		{
+			maze[curY][curX] = 'x';
+			//도착했다면
+			std::cout << "미로 도착" << std::endl;
 			break;
 		}
 
@@ -122,17 +122,14 @@ void FindPath(int sx, int sy, int ex, int ey)
 			int nextX = curX + dx[i];
 			int nextY = curY + dy[i];
 
-			if ((0 < nextX) && (nextX < X) && (0 < nextY) && (nextY < Y)
-				&& miro[nextY][nextX] != '*')
+			if ((0 < nextX) && (nextX < X) && (0 < nextY) && (nextY < Y) && maze[nextY][nextX] != '*')
 			{
-				if ((miro[nextY][nextX] == ' ' || miro[nextY][nextX] == 'e') && !visited[nextY][nextX])
+				if (maze[nextY][nextX] == ' ' || maze[nextY][nextX] == 'E')
 				{
-					stk.push({ nextX, nextY });
+					pathStk.push({ nextX, nextY });
 					curX = nextX;
 					curY = nextY;
 					isMove = true;
-					visited[nextY][nextX] = true;
-
 					break;
 				}
 			}
@@ -140,16 +137,17 @@ void FindPath(int sx, int sy, int ex, int ey)
 
 		if (isMove == false)
 		{
-			miro[curY][curX] = 'o';
-			if (stk.empty())
+			maze[curY][curX] = 'o';
+			if (pathStk.empty())
 			{
-				IsNotMiro = true;
 				break;
 			}
-			stk.pop();
-			curX = stk.top().first;
-			curY = stk.top().second;
-			IsNotMiro = false;
+			pathStk.pop();
+			if (pathStk.size() > 0)
+			{
+				curX = pathStk.top().first;
+				curY = pathStk.top().second;
+			}
 		}
 	}
 }
@@ -159,9 +157,9 @@ int main(void)
 {
 	FileInput();
 
-	std::cout << "시작 지점: " << miroPos[0][0] << "," << miroPos[0][1]
-		<< "도착 지점: " << miroPos[1][0] << "," << miroPos[1][1] << std::endl;
-	/*
+	std::cout << "Row Size:" << Y << " Col Size:" << X << "\n" << "시작 지점:" << miroPos[0][0] << "," << miroPos[0][1]
+		<< "도착 지점:" << miroPos[1][0] << "," << miroPos[1][1] << std::endl;
+
 	std::cout << "-----------초기 미로 상태--------------" << std::endl;
 	for (int i = 0; i < Y; i++)
 	{
@@ -171,7 +169,7 @@ int main(void)
 		}
 		std::cout << std::endl;
 	}
-	*/
+
 
 	int startX = miroPos[0][0];
 	int startY = miroPos[0][1];
@@ -180,23 +178,31 @@ int main(void)
 
 	int pathCount = 0;
 
-	FindPath(startX, startY, endX, endY);
+	FindPath(miro, startX, startY, endX, endY);
+
 	for (int i = 0; i < Y; i++)
 	{
 		for (int j = 0; j < X; j++)
 		{
-			if (miro[i][j] == 'o')
+			if (miro[i][j] == 'x' || miro[i][j] == 'o')
 			{
 				miro[i][j] = ' ';
-			}
-			else if (miro[i][j] == 'x')
-			{
-				pathCount++;
 			}
 		}
 	}
 
-	std::cout << "---------------움직인 경로 그리기---------------" << std::endl;
+	stack<pair<int, int>> stk;
+	stk = pathStk;
+
+	while (!stk.empty())
+	{
+		pathCount++;
+		miro[stk.top().second][stk.top().first] = 'x';
+		stk.pop();
+	}
+
+	std::cout << "---------------미로 돌고난 후---------------" << std::endl;
+
 	for (int i = 0; i < Y; i++)
 	{
 		for (int j = 0; j < X; j++)
@@ -205,8 +211,7 @@ int main(void)
 		}
 		std::cout << std::endl;
 	}
-	
-	if (IsNotMiro)
+	if (pathStk.empty())
 	{
 		std::cout << "Path not found" << std::endl;
 	}
