@@ -13,11 +13,10 @@ int X, Y;
 vector<vector<char>> miro;
 vector<vector<int>> miroPos(2, vector<int>(2, 0)); //miro의 주어진 조건들 저장
 
-//(1,1)시작 기준 down->left->up->right 순으로 살펴본다
-vector<int> dx = { 0, 1, 0, -1 };
-vector<int> dy = { -1, 0, 1, 0 };
-
 stack <pair<int, int>> pathStk; //지나간 길 stack에 넣어둠
+//(1,1)시작 기준 down->left->up->right 순으로 살펴본다
+vector<int> dx(4, 0);
+vector<int> dy(4, 0);
 
 void FileInput()
 {
@@ -160,17 +159,35 @@ int main(void)
 	std::cout << "Row Size:" << Y << " Col Size:" << X << "\n" << "시작 지점:" << miroPos[0][0] << "," << miroPos[0][1]
 		<< "도착 지점:" << miroPos[1][0] << "," << miroPos[1][1] << std::endl;
 
-	std::cout << "-----------초기 미로 상태--------------" << std::endl;
-	for (int i = 0; i < Y; i++)
+	std::cout << "-----------초기 미로 상태: 1000이상부턴 결과만 출력하므로 초기 상태 안그림-------------" << std::endl;
+	if (X < 1000 && Y < 1000)
 	{
-		for (int j = 0; j < X; j++)
+		for (int i = 0; i < Y; i++)
 		{
-			std::cout << miro[i][j];
+			for (int j = 0; j < X; j++)
+			{
+				std::cout << miro[i][j];
+			}
+			std::cout << std::endl;
 		}
-		std::cout << std::endl;
 	}
 
+	if (1000 <= X && 1000 <= Y)
+	{
+		dx.clear();
+		dy.clear();
 
+		dx = { 0, 1, 0, -1 };
+		dy = { 1, 0, -1, 0 };
+	}
+	else
+	{
+		dx.clear();
+		dy.clear();
+
+		dx = { 0, 1, 0, -1 };
+		dy = { -1, 0, 1, 0 };
+	}
 	int startX = miroPos[0][0];
 	int startY = miroPos[0][1];
 	int endX = miroPos[1][0];
@@ -193,7 +210,7 @@ int main(void)
 
 	stack<pair<int, int>> stk;
 	stk = pathStk;
-
+	std::cout << pathStk.size() << std::endl;
 	while (!stk.empty())
 	{
 		pathCount++;
