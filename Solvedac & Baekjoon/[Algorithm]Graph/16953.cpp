@@ -15,8 +15,6 @@ typedef long long ll;
 
 using namespace std;
 
-const int divideNum = 15746;
-
 int BFS(ll a, ll b)
 {
 	queue<pair<ll, ll>> q;
