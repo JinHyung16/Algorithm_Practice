@@ -5,6 +5,10 @@
 
 using namespace std;
 
+/// <summary>
+/// Silver5 단어 정렬 - 문자열, 정렬 알고리즘
+/// </summary>
+
 bool SortWordCondition(const string& a, const string& b)
 {
 	if (a.length() == b.length())

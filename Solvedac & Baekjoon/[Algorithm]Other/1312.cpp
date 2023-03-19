@@ -2,6 +2,10 @@
 
 using namespace std;
 
+/// <summary>
+/// Silver5 소수 - 수학 알고리즘
+/// </summary>
+
 int main(void)
 {
 	//a는 분자, b는 분모, n은 a/b 나머지의 n번째 자리수 의미

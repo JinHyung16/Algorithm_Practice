@@ -3,6 +3,10 @@
 
 using namespace std;
 
+/// <summary>
+/// Silver3 달팽이 - 구현 알고리즘
+/// </summary>
+
 int main(void)
 {
 	//움직이는 순서는 (위 오른쪽 아래 왼쪽) 반복

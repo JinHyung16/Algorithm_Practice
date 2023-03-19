@@ -4,6 +4,10 @@
 
 using namespace std;
 
+/// <summary>
+/// Silver4 문자열 - 브루트포스 알고리즘
+/// </summary>
+
 int MIN_DIFFERENCE = 50; //왜냐면 문자열 최대 길이가 50이므로 만약 두 문자열이 다 다르면 최소 50번 필요
 
 int main(void)

@@ -2,9 +2,9 @@
 #include<vector>
 #include<deque>
 
-///<summary>
-/// 회전하는 큐의 원리 파악 핵심
-///</summary>
+/// <summary>
+/// Silver3 회전하는 큐 - 자료구조 알고리즘
+/// </summary>
 
 
 using namespace std;

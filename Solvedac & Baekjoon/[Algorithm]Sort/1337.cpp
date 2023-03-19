@@ -4,6 +4,10 @@
 
 using namespace std;
 
+/// <summary>
+/// Silver4 올바른 배열 - 정렬 알고리즘
+/// </summary>
+
 int main(void)
 {
 	int continuous_count = 5; //옳바른 배열이기 위해 필요한 연속된 수
