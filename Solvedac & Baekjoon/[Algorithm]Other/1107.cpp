@@ -2,7 +2,7 @@
 #include<vector>
 #include<string>
 #include<math.h>
-#include<algorithm>?
+#include<algorithm>
 
 
 #define FastIO ios::sync_with_stdio(false); std::cin.tie(NULL); std::cout.tie(NULL);
