@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<vector>
 #include<algorithm>
 
@@ -7,20 +7,20 @@
 using namespace std;
 
 /// <summary>
-/// Gold4 ¼ö ¹­±â - Á¤·Ä ¾Ë°í¸®Áò
-/// ¾ç¼öÀÇ °æ¿ì Å« ¼ö³¢¸® ¹­¾î °öÇÑ´Ù.
-/// À½¼öÀÇ °æ¿ì Àý´ë°ªÀÌ Å« À½¼ö³¢¸® ¹­¾î °öÇÑ´Ù.
-/// 1Àº ¹­±âº¸´Ù ±×³É ´õÇÑ´Ù.
-/// 0ÀÇ °æ¿ì À½¼ö°¡ È¦¼ö¶ó¸é Àý´ë°ªÀÌ °¡Àå ÀÛÀº À½¼ö¿Í °öÇÑ´Ù.
+/// Gold4 ìˆ˜ ë¬¶ê¸° - ì •ë ¬ ì•Œê³ ë¦¬ì¦˜
+/// ì–‘ìˆ˜ì˜ ê²½ìš° í° ìˆ˜ë¼ë¦¬ ë¬¶ì–´ ê³±í•œë‹¤.
+/// ìŒìˆ˜ì˜ ê²½ìš° ì ˆëŒ€ê°’ì´ í° ìŒìˆ˜ë¼ë¦¬ ë¬¶ì–´ ê³±í•œë‹¤.
+/// 1ì€ ë¬¶ê¸°ë³´ë‹¤ ê·¸ëƒ¥ ë”í•œë‹¤.
+/// 0ì˜ ê²½ìš° ìŒìˆ˜ê°€ í™€ìˆ˜ë¼ë©´ ì ˆëŒ€ê°’ì´ ê°€ìž¥ ìž‘ì€ ìŒìˆ˜ì™€ ê³±í•œë‹¤.
 /// </summary>
 
 int main(void)
 {
 	FastIO;
 
-	int N = 0; //¼ö¿­ÀÇ Å©±â N
+	int N = 0; //ìˆ˜ì—´ì˜ í¬ê¸° N
 	int input = 0;
-	vector<int> positive, negative; //¾ç¼ö¿Í À½¼ö¸¦ ±¸ºÐÇØ ´ã¾ÆµÑ ¹è¿­
+	vector<int> positive, negative; //ì–‘ìˆ˜ì™€ ìŒìˆ˜ë¥¼ êµ¬ë¶„í•´ ë‹´ì•„ë‘˜ ë°°ì—´
 
 	cin >> N;
 
